@@ -31,7 +31,7 @@ public class YelpController {
         }));
         String location = "nyc";
         String search = "ice cream";
-        String url = "https://api.yelp.com/v3/businesses/search?location="+location+"&term="+search+"&categories=&sort_by=best_match";
+        String url = "https://api.yelp.com/v3/businesses/search?location="+location+"&term="+search+"&categories=&sort_by=best_match&limit=30";
         ResponseEntity<YelpSearchResult> res = restTemplate.getForEntity(url, YelpSearchResult.class);
         return res.getBody();
     }
