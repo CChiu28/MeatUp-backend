@@ -12,5 +12,6 @@ public class Location {
     private String country;
     private String state;
     private String[] display_address;
+    private String cross_streets;
 
 }
