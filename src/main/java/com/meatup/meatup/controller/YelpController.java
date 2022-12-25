@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = {"http://localhost:5173","http://localhost:5173/results"})
+@CrossOrigin(origins = {"http://localhost:5173"})
 public class YelpController {
     private final String YELP_KEY;
 
@@ -32,7 +32,7 @@ public class YelpController {
         return restTemplate;
     }
 
-    @PostMapping("/search")
+    @PostMapping(value = "/search",consumes = {"application/json"})
     public YelpSearchResult Search(@RequestBody SearchInput input) {
         RestTemplate restTemplate = getRestTemplate();
         String url = "https://api.yelp.com/v3/businesses/search?location="+input.getLocation()+"&term="+input.getSearch()+"&categories=&sort_by=best_match";
@@ -40,7 +40,7 @@ public class YelpController {
         return res.getBody();
     }
 
-    @PostMapping("/business/{id}")
+    @PostMapping(value = "/business/{id}")
     public YelpBusiness Business(@PathVariable String id) {
         System.out.println(id);
         RestTemplate restTemplate = getRestTemplate();
