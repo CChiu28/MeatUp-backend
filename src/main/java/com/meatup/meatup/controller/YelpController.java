@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/api")
 @CrossOrigin(origins = {"http://localhost:5173","http://localhost:5173/results"})
 public class YelpController {
     private final String YELP_KEY;

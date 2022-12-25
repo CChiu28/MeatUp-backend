@@ -3,6 +3,7 @@ package com.meatup.meatup.security;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -21,9 +22,10 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors().and()
+        http.cors(Customizer.withDefaults())
                 .csrf().disable()
-                .authorizeRequests((req) -> req.antMatchers("/search","/business","/business/*").permitAll().anyRequest().authenticated());
+                .authorizeRequests((req) -> req.antMatchers("/search","/business","/business/*").permitAll().anyRequest().authenticated())
+                .httpBasic(Customizer.withDefaults());
         return http.build();
     }
 
@@ -33,7 +35,7 @@ public class SecurityConfig {
         config.setAllowedOrigins(List.of("*"));
         config.setAllowedMethods(List.of("GET","POST"));
         config.setAllowCredentials(true);
-        config.setAllowedHeaders(List.of("Authorization","Cache-Control","Content-Type"));
+        config.setAllowedHeaders(List.of("Authorization","Cache-Control","Content-Type","Access-Control-Allowed-Origin"));
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**",config);
         return source;
