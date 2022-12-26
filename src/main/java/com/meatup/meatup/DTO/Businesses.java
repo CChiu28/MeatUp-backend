@@ -21,5 +21,6 @@ public class Businesses {
     private Location location;
     private String display_phone;
     private Double distance;
+    private String[] transactions;
 
 }
