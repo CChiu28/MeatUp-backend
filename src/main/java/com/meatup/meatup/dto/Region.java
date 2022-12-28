@@ -1,4 +1,4 @@
-package com.meatup.meatup.DTO;
+package com.meatup.meatup.dto;
 
 import lombok.Getter;
 
