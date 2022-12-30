@@ -8,12 +8,13 @@ public class Message {
     private String businessId;
     private String chatroomId;
     private String user;
-    private Content content;
+//    private Content content;
+    private Map<String,String> content;
 }
 
 @Getter
 class Content {
-    private String user;
+//    private String user;
     private Map<String,String> body;
-    private String date;
+//    private String date;
 }
