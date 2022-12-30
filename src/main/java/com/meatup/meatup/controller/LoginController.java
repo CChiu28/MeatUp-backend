@@ -7,6 +7,9 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -24,13 +27,15 @@ public class LoginController {
         } catch (FirebaseAuthException e) {
             System.out.println(e);
         }
-        System.out.println(decodedToken.getName());
+        System.out.println(decodedToken.getUid());
         try {
-            DocumentReference docRef = db.collection("users").document(decodedToken.getUid());
-            ApiFuture<DocumentSnapshot> future = docRef.get();
-            DocumentSnapshot document = future.get();
-            if (!document.exists()) {
-                docRef.set(decodedToken.getUid());
+            ApiFuture<DocumentSnapshot> docRef = db.collection("users").document("users").get();
+            DocumentSnapshot future = docRef.get();
+            System.out.println(future.contains(decodedToken.getUid()));
+            if (!future.contains(decodedToken.getUid())) {
+                Map<String,Object> newUser = new HashMap<>();
+                newUser.put(decodedToken.getUid(), "");
+                db.collection("users").document("users").set(newUser);
             }
         } catch (ExecutionException | InterruptedException e) {
             System.out.println(e);
