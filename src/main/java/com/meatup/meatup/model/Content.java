@@ -4,7 +4,8 @@ import lombok.Getter;
 
 @Getter
 public class Content {
-    private String user;
+    private String userid;
+    private String username;
     private String body;
     private long time;
 }
