@@ -1,17 +1,18 @@
 package com.meatup.meatup.service;
 
+import com.meatup.meatup.dto.SearchInput;
 import com.meatup.meatup.dto.YelpBusiness;
 import com.meatup.meatup.dto.YelpSearchResult;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import static java.util.Objects.isNull;
 
 @Service
 public class YelpService {
     private final String YELP_KEY;
-
-    public YelpService(@Value("${YELP_API_KEY}") String yelp_key) {
+    private YelpService(@Value("${YELP_API_KEY}") String yelp_key) {
         this.YELP_KEY = yelp_key;
     }
 
@@ -24,9 +25,13 @@ public class YelpService {
         return restTemplate;
     }
 
-    public YelpSearchResult getSearchResults(String location, String search) {
+    public YelpSearchResult getSearchResults(SearchInput input) {
+        String url = "";
+        String search = input.getSearch();
         RestTemplate restTemplate = getRestTemplate();
-        String url = "https://api.yelp.com/v3/businesses/search?location="+location+"&term="+search+"&categories=&sort_by=best_match";
+        if (!isNull(input.getLocation()))
+            url = "https://api.yelp.com/v3/businesses/search?location="+input.getLocation()+"&term="+search+"&categories=&sort_by=best_match";
+        else url = "https://api.yelp.com/v3/businesses/search?latitude="+input.getLatitude()+"&longitude="+input.getLongitude()+"&term="+search+"&categories=&sort_by=best_match";
         ResponseEntity<YelpSearchResult> res = restTemplate.getForEntity(url, YelpSearchResult.class);
         return res.getBody();
     }
