@@ -13,4 +13,5 @@ public abstract class BusinessResource {
     private float rating;
     private Location location;
     private String[] transactions;
+    private Double distance;
 }

@@ -24,4 +24,9 @@ public class YelpController {
     public YelpBusiness Business(@RequestBody String id) {
         return yelpService.getBusiness(id);
     }
+
+    @PostMapping(value = "/reviews")
+    public void Reviews(@RequestBody String id) {
+
+    }
 }

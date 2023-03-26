@@ -12,6 +12,5 @@ public class Businesses extends BusinessResource {
     private String url;
     private Coordinates coordinates;
     private String price;
-    private Double distance;
 
 }
