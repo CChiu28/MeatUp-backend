@@ -26,7 +26,7 @@ public class YelpController {
     }
 
     @PostMapping(value = "/reviews")
-    public void Reviews(@RequestBody String id) {
-
+    public Reviews Reviews(@RequestBody String id) {
+        return yelpService.getReviews(id);
     }
 }

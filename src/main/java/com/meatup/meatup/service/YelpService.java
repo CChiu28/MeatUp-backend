@@ -1,5 +1,6 @@
 package com.meatup.meatup.service;
 
+import com.meatup.meatup.dto.Reviews;
 import com.meatup.meatup.dto.SearchInput;
 import com.meatup.meatup.dto.YelpBusiness;
 import com.meatup.meatup.dto.YelpSearchResult;
@@ -41,6 +42,14 @@ public class YelpService {
         RestTemplate restTemplate = getRestTemplate();
         String url = "https://api.yelp.com/v3/businesses/"+id;
         ResponseEntity<YelpBusiness> res = restTemplate.getForEntity(url, YelpBusiness.class);
+        return res.getBody();
+    }
+
+    public Reviews getReviews(String id) {
+        System.out.println(id);
+        String url = "https://api.yelp.com/v3/businesses/"+id+"/reviews?limit=20&sort_by=yelp_sort";
+        RestTemplate restTemplate = getRestTemplate();
+        ResponseEntity<Reviews> res = restTemplate.getForEntity(url, Reviews.class);
         return res.getBody();
     }
 }

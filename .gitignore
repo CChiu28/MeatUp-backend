@@ -32,3 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 /src/main/java/com/meatup/meatup/resources/application.properties
+/src/main/resources/meatup-firebase.json
