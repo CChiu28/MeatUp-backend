@@ -15,9 +15,11 @@ public class YelpController {
     private ModelMapper mapper;
 
     @PostMapping(value = "/search",consumes = {"application/json"})
-    public YelpSearchResult Search(@RequestBody SearchInput input) {
+    public YelpSearchResultDTO Search(@RequestBody SearchInput input) {
+        mapper.typeMap(Businesses.class, BusinessesDTO.class).addMapping(Businesses::getCategories,BusinessesDTO::setCategories);
         System.out.println(input);
-        return yelpService.getSearchResults(input);
+        YelpSearchResult res = yelpService.getSearchResults(input);
+        return mapper.map(res, YelpSearchResultDTO.class);
     }
 
     @PostMapping(value = "/business")

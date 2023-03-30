@@ -9,6 +9,7 @@ import lombok.Getter;
 public class Businesses extends BusinessResource {
     @JsonProperty("is_closed")
     private boolean is_closed;
+    private Categories[] categories;
     private String url;
     private Coordinates coordinates;
     private String price;
