@@ -3,6 +3,7 @@ package com.meatup.meatup.controller;
 import com.meatup.meatup.model.UserDTO;
 import com.meatup.meatup.model.Users;
 import com.meatup.meatup.repository.UserRepository;
+import com.meatup.meatup.service.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +17,12 @@ import java.util.Set;
 @CrossOrigin(origins = {"http://localhost:5173","https://meatup1028.netlify.app/"})
 public class UserController {
     private UserRepository userRepository;
+    private UserService userService;
     private ModelMapper modelMapper;
 
-    @GetMapping("/people")
+    @GetMapping("/users")
     public List<Users> getAllUsers() {
-        return userRepository.findAll();
+        return userService.getAllUsers();
     }
 
     @GetMapping("/users/friends/{uid}")
