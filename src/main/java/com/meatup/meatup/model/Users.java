@@ -32,6 +32,8 @@ public class Users implements Serializable {
     private String email;
     @Column(columnDefinition = "TEXT")
     private String displayName;
+    @Column(columnDefinition = "TEXT")
+    private String photoUrl;
     @ManyToMany(fetch = FetchType.LAZY)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid")
     @JoinTable(name="friendships", joinColumns = @JoinColumn(name = "user_A_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_B_id", referencedColumnName = "id"))

@@ -8,8 +8,9 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
-    private Long id;
+//    private Long id;
     private String uid;
     private String email;
     private String displayName;
+    private String photoUrl;
 }

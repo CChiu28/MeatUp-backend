@@ -41,9 +41,12 @@ public class UserController {
 //    }
 
     @PostMapping("/users/add")
-    public void addUser(@RequestBody Users user) {
+    public void addUser(@RequestBody UserDTO userDTO) {
+        System.out.println(userDTO);
+        Users user = convertFromDto(userDTO);
         System.out.println(user);
-        userRepository.save(user);
+        if (!userRepository.existsByUid(user.getUid()))
+            userRepository.save(user);
     }
 
     @PostMapping("/users/add/{uid}/{friendId}")
@@ -76,5 +79,9 @@ public class UserController {
             });
             return userDTO;
         } else return new HashSet<>();
+    }
+
+    private Users convertFromDto(UserDTO userDTO) {
+        return modelMapper.map(userDTO,Users.class);
     }
 }
