@@ -22,12 +22,14 @@ public class UserController {
 
     @GetMapping("/users")
     public List<Users> getAllUsers() {
+        System.out.println("Getting all users...");
         return userService.getAllUsers();
     }
 
     @GetMapping("/users/friends/{uid}")
     public Set<UserDTO> getFriendsOfUser(@PathVariable String uid) {
         Set<Users> set = userRepository.findByUid(uid).getAddedFriends();
+        System.out.println("Getting friends of user "+uid);
         return convertToDto(set);
     }
     @GetMapping("/users/{uid}")
